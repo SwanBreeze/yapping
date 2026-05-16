@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts are loaded via index.html ── */
+
+:root {
+  --bg-primary: #080b14;
+  --bg-secondary: #0d1117;
+  --bg-tertiary: #111827;
+  --border: rgba(255, 255, 255, 0.06);
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #4b5563;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Custom Scrollbar ─────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.6); }
+
+/* ── Noise Texture Overlay ────────────────────── */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* ── Glass Morphism ───────────────────────────── */
+.glass {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Gradient Text ────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8 0%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Message bubble animations ────────────────── */
+.msg-enter {
+  animation: msgEnter 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes msgEnter {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── Typing dots ──────────────────────────────── */
+.dot { animation: bounceDot 1.2s ease-in-out infinite; }
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounceDot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-5px); }
+}
+
+/* ── Glow pulse for online status ─────────────── */
+.online-pulse {
+  animation: onlinePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes onlinePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(34, 197, 94, 0);  }
+}
+
+/* ── Sidebar glow border ──────────────────────── */
+.sidebar-border {
+  border-right: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* ── Emoji picker override ────────────────────── */
+.EmojiPickerReact {
+  --epr-bg-color: #111827 !important;
+  --epr-category-label-bg-color: #111827 !important;
+  --epr-hover-bg-color: rgba(99,102,241,0.15) !important;
+  --epr-search-border-color: rgba(99,102,241,0.3) !important;
+  --epr-text-color: #f1f5f9 !important;
+  border: 1px solid rgba(99,102,241,0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6) !important;
+}
+
+/* ── Audio waveform bars ──────────────────────── */
+.waveform-bar {
+  animation: waveformAnim 1s ease-in-out infinite alternate;
+}
+.waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+.waveform-bar:nth-child(3) { animation-delay: 0.2s; }
+.waveform-bar:nth-child(4) { animation-delay: 0.3s; }
+.waveform-bar:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes waveformAnim {
+  from { height: 4px; }
+  to   { height: 16px; }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
