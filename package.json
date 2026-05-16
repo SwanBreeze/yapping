@@ -1,0 +1,9 @@
+{
+  "name": "yapping",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd backend && node server.js",
+    "build": "cd backend && npm install"
+  },
+  "dependencies": {}
+}
